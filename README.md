@@ -1,61 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Conhecendo Jetstream
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+A ideia é trazer um repositório junto aos posts do blog laraveling.tech na categoria [jetstream](https://laraveling.tech/categorias/jetstream) para mostrar as funcionalidades do Jetstream, customizações e melhorias.
 
-## About Laravel
+Para cada tópico abordado será criado um branch com um nome sugestivo, desta forma, para visualizar tudo que é feito em um tópico, basta baixar/clonar o repositório e acessar o branch específico e acompanhar todo código feito.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Como começar
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Baixe/clone este repositório e execute os passos de instalação abaixo.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Caso queira conhecer o jetstream antes de baixar o projeto eu criei um post de [introdução ao jetstream](https://laraveling.tech/conheca-o-laravel-jetstream/) e também recomendo fortemente a [documentação oficial](https://laravel.com/docs/8.x/installation#installing-laravel).
 
-## Learning Laravel
+### Pré-Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP versão >= 7.4
+- Composer
+- MySQL versão >= 5.7
+- NodeJS e NPM/Yarn para compilar os assets
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Caso prefira utilizar docker, na raiz do projeto existe um arquivo `docker-compose.yml` com o ambiente pré-moldado. 
 
-## Laravel Sponsors
+Neste caso é um pré-requisito ter o docker e docker-compose instalados.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Instalação
 
-### Premium Partners
+A partir da raiz do projeto é necessário realizar algumas etapas para poder começar, como compilar os assets, criar o banco de dados etc. Uma ordem interessante para fazer tudo funcionar seria:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+### Dependências
 
-## Contributing
+**Instalar dependências da parte do PHP:**
+```
+composer install
+```
+**Instalar dependências da parte do JS:**
+```
+npm install
+```
+**Criar um arquivo `.env` contendo suas conexões de banco de dados.**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Neste repositório há um exemplo de `.env` em `.env.example` contendo as conexões de banco referentes ao container docker provido no arquivo `docker-compose.yml`.
 
-## Code of Conduct
+**Criar a estrutura do banco de dados.**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Uma vez configurado o `.env` executar o comando abaixo para criar a estrutura do banco de dados necessária para o projeto:
+```
+php artisan migrate
+```
 
-## Security Vulnerabilities
+**Compilar assets**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Para gerar o primeiro build do projeto utilizar o comando:
+```
+npm run dev
+```
 
-## License
+**Visualizando o projeto**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Caso não esteja utilizando o docker do projeto, aponte a pasta `public/` desta aplicação para seu webserver favorito, abaixo segue um exemplo utilizando o webserver embutido do php:
+```
+// a partir da raiz do projeto
+$ php -S 127.0.0.1:8000 -t public/
+```
+
+E acesse em seu navegador a url `http://localhost:8000`.
+
+Caso esteja utilizando o docker provido:
+```
+// a partir da raiz do projeto
+$ docker-compose up -d // inicia os containers em background
+```
+E acesse em seu navegador a url `http://jetstream.test`
+
+## Sugestões
+
+Para sugestões de melhoria e solicitações de tópicos para a série, fique a vontade para [abrir uma issue](https://github.com/Morkhusz/conhecendo-jetstream/issues/new)
+
+## Autores
+
+* **José Filho** - [Github](https://github.com/Morkhusz)
+
+## Licença
+
+Este projeto é licenciado através da MIT License.
