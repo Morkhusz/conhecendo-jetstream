@@ -16,4 +16,4 @@ services:
       - 80:8080
     volumes:
       - .:/home/app
-      - ./docker/nginx/default:/etc/nginx/sites-available/default
+      - ./docker/nginx/default.conf:/etc/nginx/sites-available/default
