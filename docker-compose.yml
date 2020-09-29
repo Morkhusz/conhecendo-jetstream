@@ -10,3 +10,10 @@ services:
       - "3306:3306"
     volumes:
       - /var/lib/mysql:/var/lib/mysql
+  php:
+    image: uotz/php7.4-nginx
+    ports:
+      - 80:8080
+    volumes:
+      - .:/home/app
+      - ./docker/nginx/default:/etc/nginx/sites-available/default

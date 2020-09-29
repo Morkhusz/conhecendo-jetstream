@@ -1,0 +1,56 @@
+server {
+
+  # Port that the web server will listen on.
+  listen 8080;
+  listen [::]:8080;
+
+  # Host that will serve this project.
+  server_name jetstream.test www.jetstream.test;
+
+  # Useful logs for debug.
+  access_log /var/log/nginx/localhost_access.log;
+  error_log /var/log/nginx/localhost_error.log;
+  rewrite_log on;
+
+  # The location of our projects public directory.
+  root /home/app/public;
+
+  # Point index of your project.
+  index index.php index.html;
+
+  # Remove trailing slash to please routing system.
+  if (!-d $request_filename) {
+
+    rewrite ^/(.+)/$ /$1 permanent;
+  }
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+  # PHP FPM configuration.
+  location ~ \.php$ {
+
+    try_files $uri /index.php =404;
+    if (!-f $document_root$fastcgi_script_name) {
+      return 404;
+    }
+    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+    fastcgi_index index.php;
+    include /etc/nginx/fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+  }
+
+  # We don't need .ht files with nginx.
+  location ~ /\.ht {
+
+    deny all;
+  }
+
+  # Set header expirations on per-project basis
+  location ~* \.(?:ico|css|js|jpe?g|JPG|png|svg|woff)$ {
+
+    expires 365d;
+  }
+}
