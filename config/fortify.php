@@ -61,7 +61,7 @@ return [
     |
     */
 
-    'home' => RouteServiceProvider::HOME,
+    'home' => '/user/profile',
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ return [
     */
 
     'limiters' => [
-        'login' => null,
+        'login' => 3,
     ],
 
     /*
@@ -108,9 +108,9 @@ return [
         // Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
-        Features::twoFactorAuthentication([
-            'confirmPassword' => true,
-        ]),
+        // Features::twoFactorAuthentication([
+        //     'confirmPassword' => true,
+        // ]),
     ],
 
 ];
